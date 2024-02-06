@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -o errexit
+
+# shellcheck source=../.env
+source .env
+
+[ -z "$WP_DOMAIN" ] && echo "Please specify a domain name in env file (ex. wordpress.test)" && exit
+[ -z "$WP_TITLE" ] && echo "Please specify a site title in env file (ex. wordpress.test)" && exit
+[ -z "$WP_ADMIN_USER" ] && echo "Please specify an admin username name in env file (ex. wordpress.test)" && exit
+[ -z "$WP_ADMIN_EMAIL" ] && echo "Please specify an admin email in env file (ex. wordpress.test)" && exit
+
+bin/wp core install --url=$WP_DOMAIN \
+  --title="$WP_TITLE" \
+  --admin_user=$WP_ADMIN_USER \
+  --admin_email=$WP_ADMIN_EMAIL \
+  --admin_password=$WP_ADMIN_PASSWORD
+
+bin/wp package install aaemnnosttv/wp-cli-login-command \
+  || echo 'wp-cli-login-command is already installed'
+
+bin/wp login install --activate --yes --skip-plugins --skip-themes
+
+bin/wp login as 1

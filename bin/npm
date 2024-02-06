@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+[ -z "$1" ] && echo "Please specify a CLI command (ex. build)" && exit
+bin/cli npm "$@"

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# shellcheck source=../.env
+source .env
+
+[ -z "$WP_DOMAIN" ] && echo "Please specify a domain name in env file (ex. wordpress.test)" && exit
+
+# Generate certificate authority if not already setup
+if ! bin/docker-compose exec -T -u root nginx cat /root/.local/share/mkcert/rootCA.pem | grep -q 'BEGIN CERTIFICATE'; then
+  bin/setup-ssl-ca
+fi
+
+# Generate the certificate for the specified domain
+bin/docker-compose exec -T -u root nginx mkcert -key-file nginx.key -cert-file nginx.crt "$WP_DOMAIN"
+echo "Moving key and cert to /etc/nginx/certs/..."
+bin/docker-compose exec -T -u root nginx chown app:app nginx.key nginx.crt
+bin/docker-compose exec -T -u root nginx chmod 644 nginx.key nginx.crt
+bin/docker-compose exec -T -u root nginx mv nginx.key nginx.crt /etc/nginx/certs/
+
+# Restart nginx to apply the updates
+echo "Restarting containers to apply updates..."
+bin/restart

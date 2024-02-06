@@ -1,0 +1,18 @@
+# Logs
+*.log
+
+# Dotenv
+.env
+.env.*
+!.env.example
+
+# IDE's
+/.idea
+/.vscode
+
+# Certificate
+rootCA.pem
+policies.json
+
+/temp
+.DS_Store

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -o errexit
+
+# shellcheck source=../.env
+source .env
+
+[ -z "$WP_DOMAIN" ] && echo "Please specify a domain name in env file (ex. wordpress.test)" && exit
+
+if ! grep -q "$WP_DOMAIN" /etc/hosts; then
+    echo "Your system password is needed to add an entry to /etc/hosts..."
+    echo "127.0.0.1 ::1 $WP_DOMAIN" | sudo tee -a /etc/hosts
+fi
+
+echo "Generating SSL certificate..."
+bin/setup-ssl

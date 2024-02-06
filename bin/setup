@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -o errexit
+
+bin/stop
+
+bin/start
+[ $? != 0 ] && echo "Failed to start Docker services" && exit
+
+echo "Copying files from host to container before install..."
+bin/copytocontainer --all
+
+echo "Running composer install..."
+bin/composer install
+
+echo "Installing wordpress..."
+bin/setup-install
+
+echo "Setting basic URL and generating SSL certificate..."
+bin/setup-domain
+
+echo "Fixing owner and permissions..."
+bin/fixowns
+bin/fixperms
+
+echo "Docker development environment setup complete."

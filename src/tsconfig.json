@@ -1,0 +1,24 @@
+{
+  "extends": ["@roots/bud/config/tsconfig.json"],
+  "compilerOptions": {
+    "allowJs": true,
+    "paths": {
+      "@src/*": ["./resources/*"]
+    },
+    "types": [
+      "@roots/bud",
+      "@roots/bud-babel",
+      "@roots/bud-sass",
+      "@roots/bud-postcss",
+      "@roots/bud-eslint",
+      "@roots/bud-preset-wordpress",
+      "@roots/bud-wordpress-dependencies",
+      "@roots/bud-wordpress-externals",
+      "@roots/bud-wordpress-manifests",
+      "webpack/module"
+    ]
+  },
+  "files": ["./bud.config.ts", "./types.d.ts"],
+  "include": ["./resources"],
+  "exclude": ["./node_modules", "./web", "./vendor"]
+}

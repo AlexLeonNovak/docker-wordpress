@@ -1,0 +1,6 @@
+.idea
+.vscode
+.github
+.env
+.env.*
+.docker
