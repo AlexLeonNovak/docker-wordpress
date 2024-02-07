@@ -37,7 +37,7 @@ Below are just a few commands added to work with wordpress
     ```
 4. Go to admin panel and regenerate permalinks
 
-
+## Examples
 #### Export/Import db
 ```Bash
 # Dump db
