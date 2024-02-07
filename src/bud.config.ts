@@ -18,6 +18,9 @@ export default async (bud: Bud) => {
     // Path of output files
     .setPath('@dist', '@theme/dist')
 
+    // Copy images from @src to @dist
+    // .assets(['images'])
+
     /**
      * Add global `app` group
      *
@@ -28,10 +31,10 @@ export default async (bud: Bud) => {
     // Live reload page if files changed
     .watch(bud.path(THEME_PATH, '*.php'))
 
-    // Enable sourcemaps
     .devtool('eval-source-map')
-
     .minimize(bud.isProduction)
     .setProxyUrl(`https://${WP_DOMAIN}`)
   ;
+  // Enable sourcemaps
+  bud.postcss.setSourceMap(true);
 };

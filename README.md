@@ -5,6 +5,7 @@ This is repository build based on [Bedrock](https://roots.io/bedrock/) and [mark
 
 ## Cli command
 You can view the description of most commands [here](https://github.com/markshust/docker-magento/blob/master/README.md#custom-cli-commands)
+
 Below are just a few commands added to work with wordpress
 
 | Command     | Description                                                                        |
@@ -20,7 +21,15 @@ Below are just a few commands added to work with wordpress
 3. Run command `bin/setup`
 
 #### Exiting project
-// TODO
+1. Create new project
+2. Import your exiting db
+3. Change siteurl and homeurl using wp-cli
+    ```Bash
+    wp option update home 'http://example.com'
+    wp option update siteurl 'http://example.com'
+    ```
+4. Go to admin panel and regenerate permalinks
+
 
 #### Export/Import db
 ```Bash
