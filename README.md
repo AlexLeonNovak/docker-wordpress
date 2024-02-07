@@ -17,6 +17,13 @@ Below are just a few commands added to work with wordpress
 ### Setup
 #### Create new project
 1. Clone this repo
+2. Reinitialize your repo 
+    ```Bash 
+    rm -rf .git
+    git init
+    git add .
+    git commit -m "commit_message"
+    ```
 2. Create new `.env` file or run `cp .env.example .env`
 3. Run command `bin/setup`
 
@@ -25,8 +32,8 @@ Below are just a few commands added to work with wordpress
 2. Import your exiting db
 3. Change siteurl and homeurl using wp-cli
     ```Bash
-    wp option update home 'http://example.com'
-    wp option update siteurl 'http://example.com'
+    bin/wp option update home 'http://example.com'
+    bin/wp option update siteurl 'http://example.com'
     ```
 4. Go to admin panel and regenerate permalinks
 
