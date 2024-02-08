@@ -55,6 +55,8 @@ gunzip < temp/wordpress.sql.gz | bin/wp db import -
 [<img src="https://cdn.roots.io/app/uploads/logo-bud.svg" width=100 />](https://bud.js.org/)
 
 ### Quick start
+**Note for WSL:** Move the project to your `/home/[user]` dir for HMR to work
+
 1. Run `bin/npm install` for beginning use
 2. Set `THEME_NAME` in `.env` file
 3. Call function named `load_resources();` in your `functions.php` file
