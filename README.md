@@ -65,3 +65,14 @@ gunzip < temp/wordpress.sql.gz | bin/wp db import -
 
 To generate files for production run `bin/npm run build`
 
+`load_resources();` can take a variable parameter argument for js, ex.:
+```php
+load_resources([
+    'str_var' => 'value',
+    'obj_var' => [
+        'key1' => 'val1',
+        'key2' => 'val2',
+    ],
+]);
+```
+You can then use in your js files as these variables are added as global using WordPress function `wp_localize_script`

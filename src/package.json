@@ -24,7 +24,6 @@
     "@roots/bud-postcss": "^6.20.0",
     "@roots/bud-preset-recommend": "^6.20.0",
     "@roots/bud-preset-wordpress": "^6.20.0",
-    "@roots/bud-purgecss": "^6.20.0",
     "@roots/bud-sass": "^6.20.0",
     "@roots/bud-swc": "^6.20.0",
     "@roots/eslint-config": "^6.20.0"

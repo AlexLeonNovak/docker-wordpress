@@ -60,7 +60,7 @@ function entrypoint(
     );
 }
 
-function bundle(string $bundleName): void
+function bundle(string $bundleName, $params = []): void
 {
     $filterHot = fn ($entry) => !strpos($entry->uri, 'hot-update');
     $url = fn ($endpoint) => join("/", [get_template_directory_uri(), 'dist', $endpoint]);
@@ -71,10 +71,16 @@ function bundle(string $bundleName): void
             'js' => entrypoint($name, 'js', $item),
             'css' => entrypoint($name, 'css', $item)
         ])
-        ->each(function ($entrypoint) use ($filterHot, $url) {
+        ->each(function ($entrypoint) use ($filterHot, $url, $bundleName, $params) {
             $entrypoint->js->filter($filterHot)->each(
-                fn ($entry) =>
-                wp_enqueue_script($entry->name, $url($entry->uri), $entry->deps, null, true)
+                function ($entry) use ($url, $bundleName, $params) {
+                    wp_enqueue_script($entry->name, $url($entry->uri), $entry->deps, null, true);
+                    if (str_contains($entry->uri, $bundleName) && $params) {
+                        foreach ($params as $varName => $_params) {
+                            wp_localize_script($entry->name, $varName, $_params);
+                        }
+                    }
+                }
             );
 
             $entrypoint->css->filter($filterHot)->each(
@@ -84,8 +90,8 @@ function bundle(string $bundleName): void
         });
 };
 
-function load_resources(): void
+function load_resources($params = []): void
 {
-    add_action('wp_enqueue_scripts', fn () => bundle('app'), 100);
+    add_action('wp_enqueue_scripts', fn () => bundle('app', $params), 100);
     add_action('enqueue_block_editor_assets', fn () => bundle('editor'), 100);
 }

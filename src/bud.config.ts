@@ -33,6 +33,7 @@ export default async (bud: Bud) => {
 
     .devtool('eval-source-map')
     .minimize(bud.isProduction)
+    .hash()
     .setProxyUrl(`https://${WP_DOMAIN}`)
   ;
   // Enable sourcemaps
