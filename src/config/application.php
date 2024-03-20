@@ -40,7 +40,7 @@ if (file_exists($root_dir . '/.env')) {
 
     $dotenv->required(['WP_DOMAIN']);
     if (!env('DATABASE_URL')) {
-        $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD']);
+        $dotenv->required(['MYSQL_DATABASE', 'MYSQL_USER', 'MYSQL_PASSWORD']);
     }
 }
 
